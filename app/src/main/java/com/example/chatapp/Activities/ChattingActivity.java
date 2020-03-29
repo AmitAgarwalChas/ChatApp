@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chatapp.R;
 import com.example.chatapp.User;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class ChattingActivity extends AppCompatActivity {
 
@@ -50,7 +53,23 @@ public class ChattingActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         fuser = auth.getCurrentUser();
         intent = getIntent();
-        String userId = intent.getStringExtra("userId");
+        final String userId = intent.getStringExtra("userId");
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String msg = message.getText().toString().trim();
+                if(!msg.equals("")){
+                    sendMessage(fuser.getUid(), userId, msg);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "You can't send empty messages",Toast.LENGTH_SHORT)
+                            .show();
+                }
+                message.setText("");
+            }
+        });
+
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -67,6 +86,18 @@ public class ChattingActivity extends AppCompatActivity {
         });
 
     }
+
+    private void sendMessage(String senderId, String recieverId, String msg) {
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", senderId);
+        hashMap.put("reciever", recieverId);
+        hashMap.put("message", msg);
+
+        dbReference.child("Chats").push().setValue(hashMap);
+    }
+
 
     private void initViews() {
         toolbar = findViewById(R.id.toolbar_chatting);
