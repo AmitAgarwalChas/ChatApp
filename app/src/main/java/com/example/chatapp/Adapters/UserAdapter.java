@@ -1,6 +1,7 @@
 package com.example.chatapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatapp.Activities.ChattingActivity;
 import com.example.chatapp.R;
 import com.example.chatapp.User;
 
@@ -37,6 +39,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.handleName.setText(muser.get(position).getUsername());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mcontext, ChattingActivity.class);
+                intent.putExtra("userId", muser.get(position).getId());
+                mcontext.startActivity(intent);
+            }
+        });
     }
 
     @Override
