@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case  R.id.logout:
                 mAuth.getInstance().signOut();
+                mGoogleSignInClient.signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
                 return true;
