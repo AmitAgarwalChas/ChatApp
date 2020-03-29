@@ -2,31 +2,29 @@ package com.example.chatapp;
 
 public class User {
 
-    String userId, userName;
+    String id, username;
 
     public User() {
     }
 
-    public User(String userId, String userName) {
-        this.userId = userId;
-        this.userName = userName;
+    public User(String id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
-
-
 }

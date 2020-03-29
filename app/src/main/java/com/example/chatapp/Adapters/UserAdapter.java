@@ -36,7 +36,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.handleName.setText(muser.get(position).getUserName());
+        holder.handleName.setText(muser.get(position).getUsername());
     }
 
     @Override

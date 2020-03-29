@@ -54,9 +54,9 @@ public class Users extends Fragment {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     User user = dataSnapshot1.getValue(User.class);
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
+                    String uId =  firebaseUser.getUid();
                     if(user!=null && firebaseUser!=null) {
-                        if (!user.getUserId().equals(firebaseUser.getUid())) {
+                        if (!user.getId().equals(uId)) {
                             userList.add(user);
                         }
                     }
